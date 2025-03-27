@@ -1,0 +1,65 @@
+#include <stdio.h>
+
+int main() {
+    int r1, c1, r2, c2;
+    
+    // Input dimensions
+    printf("Enter rows and columns of Matrix 1: ");
+    scanf("%d %d", &r1, &c1);
+    
+    printf("Enter rows and columns of Matrix 2: ");
+    scanf("%d %d", &r2, &c2);
+    
+    // Check if multiplication is possible
+    if(c1 != r2) {
+        printf("Matrix multiplication not possible. Columns of Matrix 1 must equal rows of Matrix 2.\n");
+        return 0;
+    }
+    
+    int matrix1[100][100], matrix2[100][100], result[100][100];
+
+    // Input matrix1
+    printf("\nEnter elements of Matrix 1:\n");
+    for(int i = 0; i < r1; i++) {
+        for(int j = 0; j < c1; j++) {
+            printf("matrix1[%d][%d]: ", i, j);
+            scanf("%d", &matrix1[i][j]);
+        }
+    }
+
+    // Input matrix2
+    printf("\nEnter elements of Matrix 2:\n");
+    for(int i = 0; i < r2; i++) {
+        for(int j = 0; j < c2; j++) {
+            printf("matrix2[%d][%d]: ", i, j);
+            scanf("%d", &matrix2[i][j]);
+        }
+    }
+
+    // Initialize result matrix
+    for(int i = 0; i < r1; i++) {
+        for(int j = 0; j < c2; j++) {
+            result[i][j] = 0;
+        }
+    }
+
+    // Multiply matrices
+    for(int i = 0; i < r1; i++) {
+        for(int j = 0; j < c2; j++) {
+            for(int k = 0; k < c1; k++) {
+                result[i][j] += matrix1[i][k] * matrix2[k][j];
+            }
+        }
+    }
+
+    // Print result
+    printf("\nProduct of the matrices:\n");
+    for(int i = 0; i < r1; i++) {
+        for(int j = 0; j < c2; j++) {
+            printf("%d\t", result[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}

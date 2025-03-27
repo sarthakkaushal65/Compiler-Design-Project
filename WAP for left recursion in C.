@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char input[100], alpha[10], beta[10];
+    char nonTerminal;
+    int i = 0, j = 0, k = 0, flag = 0;
+
+    printf("Enter production (format: A->Aa|b): ");
+    scanf("%s", input);
+
+    nonTerminal = input[0];
+
+    if (input[3] == nonTerminal) {
+        // Left recursion detected
+        flag = 1;
+        i = 4;
+
+        // Extract alpha (from A -> Aα)
+        while (input[i] != '|') {
+            alpha[j++] = input[i++];
+        }
+        alpha[j] = '\0';
+
+        i++; // Move past '|'
+
+        // Extract beta (from A -> β)
+        j = 0;
+        while (input[i] != '\0') {
+            beta[j++] = input[i++];
+        }
+        beta[j] = '\0';
+
+        // Display result after removing left recursion
+        printf("Left Recursion Detected.\n");
+        printf("After eliminating left recursion:\n");
+        printf("%c -> %s%c'\n", nonTerminal, beta, nonTerminal);
+        printf("%c' -> %s%c' | ε\n", nonTerminal, alpha, nonTerminal);
+    } else {
+        printf("No Left Recursion Detected.\n");
+    }
+
+    return 0;
+}
